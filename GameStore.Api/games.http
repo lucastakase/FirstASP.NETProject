@@ -1,0 +1,33 @@
+GET http://localhost:5070/games
+
+###
+
+GET http://localhost:5070/games/10
+
+###
+
+POST http://localhost:5070/games
+Content-Type: application/json
+
+{
+  "name": "Game Title22",
+  "genreId": 5,
+  "price": 9.99,
+  "releaseDate": "2023-10-01"
+}
+
+###
+
+PUT http://localhost:5070/games/5
+Content-Type: application/json
+
+{
+  "name": "Updated Game Title",
+  "genreId": 1,
+  "price": 49.99,
+  "releaseDate": "2023-11-01"
+}
+
+###
+
+DELETE http://localhost:5070/games/5
