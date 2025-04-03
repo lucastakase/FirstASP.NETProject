@@ -127,3 +127,4 @@ C:\Users\lucas\Documents\ASPNet\GameStore.Api\bin\Debug\net9.0\runtimes\win-x86\
 C:\Users\lucas\Documents\ASPNet\GameStore.Api\obj\Debug\net9.0\GameStore.Api.csproj.AssemblyReference.cache
 C:\Users\lucas\Documents\ASPNet\GameStore.Api\obj\Debug\net9.0\GameStore.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\lucas\Documents\ASPNet\GameStore.Api\obj\Debug\net9.0\GameStor.5118A84D.Up2Date
+C:\Users\lucas\Documents\ASPNet\GameStore.Api\obj\Debug\net9.0\GameStore.Api.sourcelink.json

@@ -1,6 +1,7 @@
 using GameStore.Api.Data;
 using GameStore.Api.Dtos;
 using GameStore.Api.Entities;
+using GameStore.Api.Mapping;
 
 namespace GameStore.Api.Endpoints;
 
@@ -8,13 +9,13 @@ public static class GamesEndpoints
 {
     const string GetGamesRoute = "GetGame";
 
-    private static readonly List<GameDto> games = 
+    private static readonly List<GameSummaryDto> games = 
     [
-    new GameDto(1, "The Legend of Zelda: Breath of the Wild", "Action-adventure", 59.99m, new DateOnly(2017, 3, 3)),
-    new GameDto(2, "Super Mario Odyssey", "Platformer", 59.99m, new DateOnly(2017, 10, 27)),
-    new GameDto(3, "The Witcher 3: Wild Hunt", "Action RPG", 39.99m, new DateOnly(2015, 5, 19)),
-    new GameDto(4, "Dark Souls III", "Action RPG", 39.99m, new DateOnly(2016, 3, 24)),
-    new GameDto(5, "Hollow Knight", "Metroidvania", 14.99m, new DateOnly(2017, 2, 24))
+    new GameSummaryDto(1, "The Legend of Zelda: Breath of the Wild", "Action-adventure", 59.99m, new DateOnly(2017, 3, 3)),
+    new GameSummaryDto(2, "Super Mario Odyssey", "Platformer", 59.99m, new DateOnly(2017, 10, 27)),
+    new GameSummaryDto(3, "The Witcher 3: Wild Hunt", "Action RPG", 39.99m, new DateOnly(2015, 5, 19)),
+    new GameSummaryDto(4, "Dark Souls III", "Action RPG", 39.99m, new DateOnly(2016, 3, 24)),
+    new GameSummaryDto(5, "Hollow Knight", "Metroidvania", 14.99m, new DateOnly(2017, 2, 24))
     ];
 
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
@@ -26,43 +27,28 @@ public static class GamesEndpoints
         group.MapGet("/", () => games);
 
         //GET /games/1
-        group.MapGet("/{id}", (int id) =>
+        group.MapGet("/{id}", (int id, GameStoreContext dbContext) =>
         {
-            GameDto? game = games.Find(game => game.Id == id);
+            Game? game = dbContext.Games.Find(id);
 
-            return game is null ? Results.NotFound() : Results.Ok(game);
+            return game is null ? Results.NotFound() : Results.Ok(game.ToGameDetailsDto());
         })
         .WithName(GetGamesRoute);
 
         //POST /games
-        group.MapPost("/", (CreateGameDto gameDto, GameStoreContext dbContext) =>
+        group.MapPost("/", (CreateGameDto newGame, GameStoreContext dbContext) =>
         {
-            if(string.IsNullOrEmpty(gameDto.Name))
+            if(string.IsNullOrEmpty(newGame.Name))
             {
                 return Results.BadRequest("Name and Genre are required.");
             }
-
-            Game game = new()
-            {
-                Name = gameDto.Name,
-                Genre = dbContext.Genres.Find(gameDto.GenreId),
-                GenreId = gameDto.GenreId,
-                Price = gameDto.Price,
-                ReleaseDate = gameDto.ReleaseDate,
-            };
+            Game game = newGame.ToEntity();
 
             dbContext.Games.Add(game);
             dbContext.SaveChanges();
 
-            GameDto gameResponseDto = new(
-                game.Id,
-                game.Name,
-                game.Genre!.Name,
-                game.Price,
-                game.ReleaseDate
-            );
 
-            return Results.CreatedAtRoute(GetGamesRoute, new { id = game.Id }, gameResponseDto);
+            return Results.CreatedAtRoute(GetGamesRoute, new { id = game.Id }, game.ToGameDetailsDto());
         })
         .WithParameterValidation();
 
@@ -78,7 +64,7 @@ public static class GamesEndpoints
             }
             ;
 
-            games[index] = new GameDto
+            games[index] = new GameSummaryDto
             (
                 id,
                 UpdateGameDto.Name,
