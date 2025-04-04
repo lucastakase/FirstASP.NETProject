@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas\\Documents\\ASPNet\\GameStore.Api\\GameStore.Api.csproj": {}
+    "C:\\Users\\lucas\\Documents\\Lab .net\\ASPNet\\GameStore.Api\\GameStore.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas\\Documents\\ASPNet\\GameStore.Api\\GameStore.Api.csproj": {
+    "C:\\Users\\lucas\\Documents\\Lab .net\\ASPNet\\GameStore.Api\\GameStore.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas\\Documents\\ASPNet\\GameStore.Api\\GameStore.Api.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\Documents\\Lab .net\\ASPNet\\GameStore.Api\\GameStore.Api.csproj",
         "projectName": "GameStore.Api",
-        "projectPath": "C:\\Users\\lucas\\Documents\\ASPNet\\GameStore.Api\\GameStore.Api.csproj",
+        "projectPath": "C:\\Users\\lucas\\Documents\\Lab .net\\ASPNet\\GameStore.Api\\GameStore.Api.csproj",
         "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas\\Documents\\ASPNet\\GameStore.Api\\obj\\",
+        "outputPath": "C:\\Users\\lucas\\Documents\\Lab .net\\ASPNet\\GameStore.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
